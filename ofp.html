@@ -43,18 +43,21 @@
             gap: 4px;
             z-index: 10;
             opacity: 0;
-            transition: opacity 0.5s ease 1s;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateX(-50%) translateY(10px);
         }
 
         .show-delta {
             opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
 
-        /* Анімації росту */
+        /* Анімації росту з ефектом пружини */
         .bar-grow {
             transform-origin: bottom;
             transform: scaleY(0);
-            transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Більш виражений ефект пружини */
+            transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .bar-grow.active {
@@ -63,7 +66,7 @@
 
         .progress-grow {
             width: 0 !important;
-            transition: width 1.5s ease-out;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .progress-grow.active {
@@ -71,12 +74,13 @@
         }
 
         .bar-transition {
-            transition: all 0.3s ease;
+            transition: filter 0.3s ease, transform 0.3s ease;
         }
 
         .bar-transition:hover {
             filter: brightness(110%);
-            transform: scale(1.05) translateY(-5px);
+            /* Трансформація при наведенні не повинна конфліктувати з scaleY */
+            transform: scaleY(1.05) translateY(-2px) !important; 
             z-index: 20;
         }
 
@@ -138,14 +142,15 @@
                     </div>
 
                     <div class="relative h-80 flex items-end justify-around pb-12 border-b border-gray-200">
-                        <div class="delta-bubble border-green-200 text-green-700" id="delta-1">
+                        <div class="delta-bubble border-green-200 text-green-700" id="delta-1" style="transition-delay: 1200ms;">
                             <span>↑</span> <span class="counter" data-target="249">0</span>
                         </div>
 
                         <!-- Bar 2025 -->
                         <div class="flex flex-col items-center w-20">
                             <span class="text-xs font-bold mb-2">1 200</span>
-                            <div class="w-full bg-[#3B5998] h-48 rounded-t-sm bar-transition bar-grow active cursor-pointer relative group" onclick="showInfo('ФОП 2025 (Факт)', 'Загальний фактичний фонд оплати праці за минулий рік, враховуючи всі виплати та премії.')">
+                            <!-- delay-100 -->
+                            <div class="w-full bg-[#3B5998] h-48 rounded-t-sm bar-transition bar-grow cursor-pointer relative group" style="transition-delay: 100ms;" onclick="showInfo('ФОП 2025 (Факт)', 'Загальний фактичний фонд оплати праці за минулий рік, враховуючи всі виплати та премії.')">
                                 <div class="absolute inset-0 flex items-center justify-center text-[10px] text-white opacity-0 group-hover:opacity-100 transition-opacity">Факт</div>
                             </div>
                             <div class="text-[10px] text-gray-500 mt-2 text-center uppercase font-medium">2025<br>факт</div>
@@ -154,7 +159,8 @@
                         <!-- Bar 2026 -->
                         <div class="flex flex-col items-center w-20">
                             <span class="text-xs font-bold mb-2 counter" data-target="1449">0</span>
-                            <div class="w-full h-56 flex flex-col rounded-t-sm overflow-hidden bar-transition bar-grow active cursor-pointer shadow-lg" style="transition-delay: 0.2s;" onclick="showInfo('План ФОП 2026', 'Запланований бюджет включає розширення штату та планове підвищення грейдів.')">
+                            <!-- delay-300 -->
+                            <div class="w-full h-56 flex flex-col rounded-t-sm overflow-hidden bar-transition bar-grow cursor-pointer shadow-lg" style="transition-delay: 300ms;" onclick="showInfo('План ФОП 2026', 'Запланований бюджет включає розширення штату та планове підвищення грейдів.')">
                                 <div class="bg-[#78A1BB] h-1/2 flex items-center justify-center text-[10px] text-white font-bold" title="IT">45%</div>
                                 <div class="bg-[#F2C94C] h-1/4 flex items-center justify-center text-[10px] text-white font-bold" title="Бек-офіс">25%</div>
                                 <div class="bg-[#3B5998] h-1/4 flex items-center justify-center text-[10px] text-white font-bold" title="Інше">30%</div>
@@ -177,19 +183,21 @@
                     </div>
 
                     <div class="relative h-80 flex items-end justify-around pb-12 border-b border-gray-200">
-                        <div class="delta-bubble border-blue-200 text-blue-700" id="delta-2">
+                        <div class="delta-bubble border-blue-200 text-blue-700" id="delta-2" style="transition-delay: 1400ms;">
                             <span>+</span> <span class="counter" data-target="54">0</span>
                         </div>
 
                         <div class="flex flex-col items-center w-20">
                             <span class="text-xs font-bold mb-2 counter" data-target="210">0</span>
-                            <div class="w-full bg-[#1B3A57] h-40 rounded-t-sm bar-transition bar-grow active cursor-pointer" onclick="showInfo('Штат 2025', 'Поточна кількість співробітників станом на кінець 2025 року.')"></div>
+                            <!-- delay-500 -->
+                            <div class="w-full bg-[#1B3A57] h-40 rounded-t-sm bar-transition bar-grow cursor-pointer" style="transition-delay: 500ms;" onclick="showInfo('Штат 2025', 'Поточна кількість співробітників станом на кінець 2025 року.')"></div>
                             <div class="text-[10px] text-gray-500 mt-2 text-center uppercase font-medium">2025<br>факт</div>
                         </div>
 
                         <div class="flex flex-col items-center w-20">
                             <span class="text-xs font-bold mb-2 counter" data-target="264">0</span>
-                            <div class="w-full bg-[#1B3A57] h-52 rounded-t-sm bar-transition bar-grow active cursor-pointer shadow-lg" style="transition-delay: 0.3s;" onclick="showInfo('Штат 2026 (План)', 'Цільова чисельність з урахуванням нових проектів та експертизи SAP.')"></div>
+                            <!-- delay-700 -->
+                            <div class="w-full bg-[#1B3A57] h-52 rounded-t-sm bar-transition bar-grow cursor-pointer shadow-lg" style="transition-delay: 700ms;" onclick="showInfo('Штат 2026 (План)', 'Цільова чисельність з урахуванням нових проектів та експертизи SAP.')"></div>
                             <div class="text-[10px] text-gray-500 mt-2 text-center uppercase font-medium">2026<br>план</div>
                         </div>
                     </div>
@@ -229,7 +237,7 @@
                                     <span class="text-xs font-bold text-[#002D57]">+ 120.4</span>
                                 </div>
                                 <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden shadow-inner">
-                                    <div class="bg-[#1B3A57] h-full progress-grow active" style="--target-width: 72%;"></div>
+                                    <div class="bg-[#1B3A57] h-full progress-grow" style="--target-width: 72%; transition-delay: 900ms;"></div>
                                 </div>
                             </div>
                             <!-- Factor 2 -->
@@ -239,7 +247,7 @@
                                     <span class="text-xs font-bold text-[#002D57]">+ 45.8</span>
                                 </div>
                                 <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden shadow-inner">
-                                    <div class="bg-[#78A1BB] h-full progress-grow active" style="--target-width: 38%; transition-delay: 0.4s;"></div>
+                                    <div class="bg-[#78A1BB] h-full progress-grow" style="--target-width: 38%; transition-delay: 1100ms;"></div>
                                 </div>
                             </div>
                         </div>
@@ -298,7 +306,7 @@
                     </div>
                     <p class="text-[10px] leading-tight text-blue-200 mt-1 uppercase font-bold tracking-widest">Рівень укомплектованості</p>
                     <div class="mt-3 w-full bg-blue-900/50 h-1.5 rounded-full overflow-hidden">
-                        <div class="bg-green-400 h-full progress-grow active" style="--target-width: 100%; transition-delay: 0.8s;"></div>
+                        <div class="bg-green-400 h-full progress-grow" style="--target-width: 100%; transition-delay: 1500ms;"></div>
                     </div>
                 </div>
 
@@ -318,11 +326,11 @@
 
     <script>
         // Ініціалізація анімацій при завантаженні
-        window.onload = function() {
-            // Анімація лічильників
+        document.addEventListener('DOMContentLoaded', () => {
+            // Запускаємо лічильники
             document.querySelectorAll('.counter').forEach(counter => {
                 const target = parseInt(counter.getAttribute('data-target'));
-                const duration = 2000; // 2 секунди
+                const duration = 2000;
                 const increment = target / (duration / 16);
                 let current = 0;
 
@@ -338,14 +346,18 @@
                 updateCounter();
             });
 
-            // Показ дельта-бульбашок з затримкою
+            // Запускаємо анімації графіків з невеликою затримкою, 
+            // щоб браузер встиг "зрозуміти", що початкова висота була 0
             setTimeout(() => {
-                document.querySelectorAll('.delta-bubble').forEach(el => el.classList.add('show-delta'));
-            }, 500);
-
-            // Активація прогрес-барів
-            document.querySelectorAll('.progress-grow, .bar-grow').forEach(el => el.classList.add('active'));
-        };
+                document.querySelectorAll('.progress-grow, .bar-grow').forEach(el => {
+                    el.classList.add('active');
+                });
+                
+                document.querySelectorAll('.delta-bubble').forEach(el => {
+                    el.classList.add('show-delta');
+                });
+            }, 300); // 300ms затримка для старту хвилі
+        });
 
         // Функції модального вікна
         function showInfo(title, text) {
